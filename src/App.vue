@@ -7,14 +7,19 @@
 
 <script>
 import HelloWorld from "./components/HelloWorld.vue";
-
+import { mapGetters } from 'vuex'
 export default {
   name: "app",
   components: {
-    HelloWorld
+    HelloWorld,
+  },
+  computed:{
+    ...mapGetters(['test'])
   },
   mounted(){
-    this.$store.dispatch('setTest',1)
+    this.$store.dispatch('setTest',10).then(()=>{
+      console.log(this.test)
+    })
   }
 };
 document.addEventListener("DOMContentLoaded", () => {
