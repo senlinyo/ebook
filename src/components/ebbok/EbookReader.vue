@@ -14,7 +14,6 @@ import {
   getTheme,
   saveTheme
 } from "../../utils/localStorage.js";
-import { addCss } from "../../utils/book.js";
 import Epub from "epubjs";
 import { Promise } from "q";
 global.epub = Epub;
@@ -69,19 +68,17 @@ export default {
       let defaultTheme = getTheme(this.fileName);
       if (!defaultTheme) {
         defaultTheme = this.themeList[0].name;
-        this.setDefaultTheme(defaultTheme);
         saveTheme(this.fileName, defaultTheme);
       }
+      this.setDefaultTheme(defaultTheme);
       this.themeList.forEach(theme => {
         this.rendition.themes.register(theme.name, theme.style);
       });
       this.rendition.themes.select(defaultTheme);
     },
-    initGlobalStyle() {
-      addCss(`${process.env.VUE_APP_RES_URL}/theme/theme_default.css`)
-    },
     initEpub() {
-      const url = "http://192.168.0.194:8086/" + this.fileName + ".epub";
+      const url = process.env.VUE_APP_RES_URL + "/" + this.fileName + ".epub";
+      console.log(url);
       this.book = new Epub(url);
       this.setCurrentBook(this.book);
       this.rendition = this.book.renderTo("read", {

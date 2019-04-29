@@ -23,8 +23,10 @@ export default {
     setTheme(name) {
       this.setDefaultTheme(name).then(() => {
         this.currentBook.rendition.themes.select(this.defaultTheme);
+        this.initGlobalStyle()
       });
       saveTheme(this.fileName, name);
+
     }
   }
 };

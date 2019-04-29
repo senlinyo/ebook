@@ -129,3 +129,13 @@ export function addCss(href) {
   link.setAttribute('href',href)
   document.getElementsByTagName('head')[0].appendChild(link)
 }
+
+export function removeCss(href) {
+  const links = document.getElementsByTagName('link')
+  for (let i =links.length; i>=0;i--) {
+    const link = links[i]
+    if(link && link.getAttribute('href') && link.getAttribute('href')=== href) {
+      link.parentNode.removeChild(link)
+    }
+  }
+}
